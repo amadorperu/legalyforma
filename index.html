@@ -1,446 +1,87 @@
-<!--
-  SECCIÓN DE SERVICIOS — LEGAL Y FORMA
-  ------------------------------------------------------------
-  Bloque autónomo (HTML + CSS + JS en un solo archivo).
-  Para integrarlo en legalyforma.com: copia desde <section class="ly-servicios"> 
-  hasta el cierre </section>, junto con el <style> y el <script>.
-  Las imágenes usan Unsplash (libres) y tienen respaldo en degradado por si no cargan.
-  Reemplázalas por tus propias fotos cambiando los atributos data-img / src.
--->
-
-<!-- ====== FUENTES ====== -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-  .ly-servicios {
-    --ink: #15110d;
-    --ink-soft: #3d3630;
-    --paper: #f6f1e9;
-    --paper-2: #efe7da;
-    --gold: #a9762f;
-    --gold-soft: #c9a15e;
-    --line: rgba(21, 17, 13, 0.12);
-    --shadow: 28px 28px 60px rgba(21, 17, 13, 0.10);
-
-    position: relative;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Manrope', system-ui, sans-serif;
-    padding: clamp(64px, 9vw, 140px) clamp(20px, 6vw, 96px);
-    overflow: hidden;
-    isolation: isolate;
-  }
-
-  /* Trama arquitectónica de fondo (efecto plano inmobiliario) */
-  .ly-servicios::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 64px 64px;
-    -webkit-mask-image: radial-gradient(ellipse 120% 80% at 80% 0%, #000 0%, transparent 70%);
-    mask-image: radial-gradient(ellipse 120% 80% at 80% 0%, #000 0%, transparent 70%);
-    opacity: .5;
-    z-index: -1;
-  }
-  .ly-servicios::after {
-    content: "";
-    position: absolute;
-    top: -160px; right: -160px;
-    width: 520px; height: 520px;
-    background: radial-gradient(circle, rgba(169,118,47,.18), transparent 65%);
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  .ly-wrap { max-width: 1240px; margin: 0 auto; }
-
-  /* ---- Encabezado ---- */
-  .ly-head { max-width: 720px; margin-bottom: clamp(40px, 5vw, 72px); }
-  .ly-eyebrow {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 12px; font-weight: 700; letter-spacing: .22em;
-    text-transform: uppercase; color: var(--gold);
-    margin: 0 0 22px;
-  }
-  .ly-eyebrow::before {
-    content: ""; width: 38px; height: 1px; background: var(--gold);
-  }
-  .ly-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: clamp(34px, 5.2vw, 60px);
-    line-height: 1.02;
-    letter-spacing: -.015em;
-    margin: 0 0 20px;
-  }
-  .ly-title em { font-style: italic; color: var(--gold); }
-  .ly-lead {
-    font-size: clamp(15px, 1.4vw, 18px);
-    line-height: 1.65; color: var(--ink-soft); max-width: 560px; margin: 0;
-  }
-
-  /* ---- Grilla de servicios ---- */
-  .ly-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(16px, 1.8vw, 26px);
-  }
-  /* Tarjeta destacada ancha */
-  .ly-card.is-wide { grid-column: span 2; }
-
-  .ly-card {
-    position: relative;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 22px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform .55s cubic-bezier(.16,1,.3,1),
-                box-shadow .55s cubic-bezier(.16,1,.3,1),
-                border-color .4s;
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  .ly-card.in { opacity: 1; transform: translateY(0); }
-  .ly-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow);
-    border-color: rgba(169,118,47,.4);
-  }
-
-  /* Imagen con efecto Ken-Burns / zoom inmobiliario */
-  .ly-media {
-    position: relative;
-    height: 210px;
-    overflow: hidden;
-    background:
-      linear-gradient(135deg, var(--paper-2), #d8cbb6);
-  }
-  .ly-card.is-wide .ly-media { height: 230px; }
-  .ly-media img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    transform: scale(1.06);
-    transition: transform 1.1s cubic-bezier(.16,1,.3,1), filter .6s;
-    filter: saturate(.92) contrast(1.02);
-  }
-  .ly-card:hover .ly-media img { transform: scale(1.16); filter: saturate(1.05); }
-  .ly-media::after {
-    content: "";
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(21,17,13,.55) 0%, rgba(21,17,13,0) 55%);
-  }
-  .ly-num {
-    position: absolute; top: 14px; left: 16px;
-    z-index: 2;
-    font-family: 'Fraunces', serif; font-size: 13px; font-weight: 600;
-    color: #fff; letter-spacing: .1em;
-    background: rgba(21,17,13,.32);
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255,255,255,.25);
-    padding: 5px 11px; border-radius: 999px;
-  }
-
-  /* Cuerpo de la tarjeta */
-  .ly-body {
-    padding: 22px 24px 24px;
-    display: flex; flex-direction: column; flex: 1;
-  }
-  .ly-card-top {
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;
-  }
-  .ly-card h3 {
-    font-family: 'Fraunces', serif; font-weight: 500;
-    font-size: clamp(19px, 1.7vw, 23px); line-height: 1.12;
-    margin: 0; letter-spacing: -.01em;
-  }
-  .ly-desc {
-    font-size: 14.5px; line-height: 1.6; color: var(--ink-soft);
-    margin: 12px 0 0;
-  }
-
-  /* Botón "+" */
-  .ly-plus {
-    flex: 0 0 auto;
-    width: 42px; height: 42px;
-    border-radius: 14px;
-    border: 1px solid var(--line);
-    background: var(--paper);
-    color: var(--ink);
-    cursor: pointer;
-    display: grid; place-items: center;
-    transition: background .35s, color .35s, transform .45s, border-color .35s;
-  }
-  .ly-plus svg { width: 18px; height: 18px; transition: transform .45s cubic-bezier(.16,1,.3,1); }
-  .ly-plus:hover { border-color: var(--gold); }
-  .ly-card.open .ly-plus { background: var(--gold); color: #fff; border-color: var(--gold); }
-  .ly-card.open .ly-plus svg { transform: rotate(135deg); }
-
-  /* Detalle desplegable */
-  .ly-detail {
-    display: grid; grid-template-rows: 0fr;
-    transition: grid-template-rows .5s cubic-bezier(.16,1,.3,1);
-  }
-  .ly-card.open .ly-detail { grid-template-rows: 1fr; }
-  .ly-detail-inner { overflow: hidden; }
-  .ly-detail ul {
-    list-style: none; margin: 18px 0 0; padding: 18px 0 0;
-    border-top: 1px solid var(--line);
-    display: grid; gap: 10px;
-  }
-  .ly-detail li {
-    position: relative; padding-left: 24px;
-    font-size: 14px; line-height: 1.5; color: var(--ink-soft);
-  }
-  .ly-detail li::before {
-    content: ""; position: absolute; left: 0; top: 7px;
-    width: 9px; height: 9px; border-radius: 2px;
-    background: var(--gold); transform: rotate(45deg);
-  }
-  .ly-cta {
-    margin-top: 16px;
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 13.5px; font-weight: 700; letter-spacing: .02em;
-    color: var(--gold); text-decoration: none;
-  }
-  .ly-cta svg { width: 15px; height: 15px; transition: transform .35s; }
-  .ly-cta:hover svg { transform: translateX(4px); }
-
-  /* Banda de cierre */
-  .ly-foot {
-    margin-top: clamp(40px, 5vw, 64px);
-    display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px;
-    justify-content: space-between;
-    padding: 28px clamp(22px, 3vw, 40px);
-    background: var(--ink); color: var(--paper);
-    border-radius: 22px;
-  }
-  .ly-foot p { margin: 0; font-size: clamp(16px,1.6vw,20px); font-family:'Fraunces',serif; font-weight:400; }
-  .ly-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--gold); color: #fff; text-decoration: none;
-    font-weight: 700; font-size: 14px; letter-spacing: .02em;
-    padding: 14px 26px; border-radius: 999px;
-    transition: background .35s, transform .35s;
-  }
-  .ly-btn:hover { background: var(--gold-soft); transform: translateY(-2px); }
-
-  /* Responsive */
-  @media (max-width: 900px) {
-    .ly-grid { grid-template-columns: repeat(2, 1fr); }
-    .ly-card.is-wide { grid-column: span 2; }
-  }
-  @media (max-width: 600px) {
-    .ly-grid { grid-template-columns: 1fr; }
-    .ly-card.is-wide { grid-column: span 1; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .ly-card, .ly-media img, .ly-plus svg { transition: none !important; }
-    .ly-card { opacity: 1; transform: none; }
-  }
-</style>
-
-<!-- ====== HTML DE LA SECCIÓN ====== -->
-<section class="ly-servicios">
-  <div class="ly-wrap">
-
-    <header class="ly-head">
-      <p class="ly-eyebrow">Servicios</p>
-      <h2 class="ly-title">Asesoría legal con enfoque <em>inmobiliario</em></h2>
-      <p class="ly-lead">Acompañamos a propietarios, empresas e inversionistas en cada etapa de su patrimonio inmobiliario, con rigor jurídico y soluciones a la medida.</p>
-    </header>
-
-    <div class="ly-grid">
-
-      <!-- 1 -->
-      <article class="ly-card">
-        <div class="ly-media">
-          <span class="ly-num">01</span>
-          <img alt="Contratos inmobiliarios"
-               src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"
-               loading="lazy">
-        </div>
-        <div class="ly-body">
-          <div class="ly-card-top">
-            <h3>Contratos Inmobiliarios</h3>
-            <button class="ly-plus" aria-expanded="false" aria-label="Ver más">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            </button>
-          </div>
-          <p class="ly-desc">Asesoría legal, revisión, modificación y redacción de contratos de compraventa, arrendamiento y demás actos inmobiliarios.</p>
-          <div class="ly-detail"><div class="ly-detail-inner">
-            <ul>
-              <li>Compraventa, arrendamiento, anticresis y opción de compra.</li>
-              <li>Revisión de cláusulas y mitigación de riesgos legales.</li>
-              <li>Redacción a medida y minutas para notaría.</li>
-            </ul>
-            <a class="ly-cta" href="#contacto">Solicitar asesoría <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div></div>
-        </div>
-      </article>
-
-      <!-- 2 -->
-      <article class="ly-card">
-        <div class="ly-media">
-          <span class="ly-num">02</span>
-          <img alt="Junta de propietarios"
-               src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?auto=format&fit=crop&w=800&q=80"
-               loading="lazy">
-        </div>
-        <div class="ly-body">
-          <div class="ly-card-top">
-            <h3>Junta de Propietarios</h3>
-            <button class="ly-plus" aria-expanded="false" aria-label="Ver más">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            </button>
-          </div>
-          <p class="ly-desc">Asesoría legal e integral a las juntas de propietarios para una gestión ordenada, transparente y conforme a ley.</p>
-          <div class="ly-detail"><div class="ly-detail-inner">
-            <ul>
-              <li>Constitución, reglamento interno y libro de actas.</li>
-              <li>Convocatorias, asambleas y validez de acuerdos.</li>
-              <li>Resolución de conflictos entre copropietarios.</li>
-            </ul>
-            <a class="ly-cta" href="#contacto">Solicitar asesoría <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div></div>
-        </div>
-      </article>
-
-      <!-- 3 -->
-      <article class="ly-card">
-        <div class="ly-media">
-          <span class="ly-num">03</span>
-          <img alt="Procesos judiciales"
-               src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80"
-               loading="lazy">
-        </div>
-        <div class="ly-body">
-          <div class="ly-card-top">
-            <h3>Procesos Judiciales</h3>
-            <button class="ly-plus" aria-expanded="false" aria-label="Ver más">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            </button>
-          </div>
-          <p class="ly-desc">Representación judicial en procesos relacionados con bienes inmuebles, defendiendo tu propiedad en cada instancia.</p>
-          <div class="ly-detail"><div class="ly-detail-inner">
-            <ul>
-              <li>Desalojo, reivindicación y mejor derecho de propiedad.</li>
-              <li>Prescripción adquisitiva de dominio.</li>
-              <li>Conflictos de linderos y deslinde.</li>
-            </ul>
-            <a class="ly-cta" href="#contacto">Solicitar asesoría <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div></div>
-        </div>
-      </article>
-
-      <!-- 4 (ancha) -->
-      <article class="ly-card is-wide">
-        <div class="ly-media">
-          <span class="ly-num">04</span>
-          <img alt="Saneamiento físico legal de inmueble"
-               src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1100&q=80"
-               loading="lazy">
-        </div>
-        <div class="ly-body">
-          <div class="ly-card-top">
-            <h3>Saneamiento Físico Legal de Inmueble</h3>
-            <button class="ly-plus" aria-expanded="false" aria-label="Ver más">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            </button>
-          </div>
-          <p class="ly-desc">Asesoría técnico-legal en la regularización, independización e inscripción de tu propiedad ante Registros Públicos (SUNARP).</p>
-          <div class="ly-detail"><div class="ly-detail-inner">
-            <ul>
-              <li>Prescripción, rectificación de áreas y linderos.</li>
-              <li>Independización, acumulación y declaratoria de fábrica.</li>
-              <li>Inscripción registral y tracto sucesivo.</li>
-            </ul>
-            <a class="ly-cta" href="#contacto">Solicitar asesoría <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div></div>
-        </div>
-      </article>
-
-      <!-- 5 -->
-      <article class="ly-card">
-        <div class="ly-media">
-          <span class="ly-num">05</span>
-          <img alt="Consultoría legal"
-               src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80"
-               loading="lazy">
-        </div>
-        <div class="ly-body">
-          <div class="ly-card-top">
-            <h3>Consultoría Legal</h3>
-            <button class="ly-plus" aria-expanded="false" aria-label="Ver más">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            </button>
-          </div>
-          <p class="ly-desc">Brindamos una consultoría legal personalizada para empresas y particulares en materia inmobiliaria, civil y registral.</p>
-          <div class="ly-detail"><div class="ly-detail-inner">
-            <ul>
-              <li>Diagnóstico legal y due diligence inmobiliario.</li>
-              <li>Acompañamiento en inversión y adquisición de predios.</li>
-              <li>Opiniones legales y planeamiento patrimonial.</li>
-            </ul>
-            <a class="ly-cta" href="#contacto">Solicitar asesoría <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div></div>
-        </div>
-      </article>
-
-    </div>
-
-    <div class="ly-foot">
-      <p>¿No encuentras el servicio que necesitas? Conversemos tu caso.</p>
-      <a class="ly-btn" href="#contacto">Agendar consulta
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<!-- ====== JS: desplegar tarjetas + animación de entrada + respaldo de imágenes ====== -->
-<script>
-(function () {
-  const root = document.currentScript.closest('body') || document;
-
-  // Acordeón "+"
-  root.querySelectorAll('.ly-card .ly-plus').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      const card = btn.closest('.ly-card');
-      const open = card.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  });
-
-  // Aparición progresiva al hacer scroll
-  const cards = root.querySelectorAll('.ly-card');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e, i) {
-        if (e.isIntersecting) {
-          setTimeout(function(){ e.target.classList.add('in'); }, e.target.dataset.d || 0);
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    cards.forEach(function (c, i) { c.dataset.d = i * 90; io.observe(c); });
-  } else {
-    cards.forEach(function (c) { c.classList.add('in'); });
-  }
-
-  // Respaldo elegante si una imagen no carga
-  root.querySelectorAll('.ly-media img').forEach(function (img) {
-    img.addEventListener('error', function () {
-      img.style.display = 'none';
-    });
-  });
-})();
-</script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal y Forma | Asesoría Legal Inmobiliaria en Lima</title>
+    <meta name="description" content="Servicios legales especializados en el sector inmobiliario. Contratos, asesoría y consultoría para compra, venta y alquiler de inmuebles en Lima, Perú.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--color-primary:#0f1c2e;--color-secondary:#d4a853;--color-accent:#1a3a5c;--color-light:#f7f5f2;--color-white:#fff;--color-text:#2d3748;--color-text-light:#64748b;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif;--transition:all .4s cubic-bezier(.4,0,.2,1)}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--font-body);color:var(--color-text);line-height:1.7;background:var(--color-white);overflow-x:hidden}
+        header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(15,28,46,.08);transition:var(--transition)}header.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.1)}.header-content{max-width:1200px;margin:0 auto;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center}.logo{font-family:var(--font-display);font-size:1.4rem;font-weight:600;color:var(--color-primary);text-decoration:none}.logo span{color:var(--color-secondary)}nav{display:none;gap:2rem;align-items:center}nav a{color:var(--color-text);text-decoration:none;font-size:.95rem;font-weight:500;position:relative;transition:var(--transition)}nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--color-secondary);transition:var(--transition)}nav a:hover::after{width:100%}nav a:hover{color:var(--color-secondary)}
+        .mobile-menu-btn{display:flex;flex-direction:column;justify-content:center;align-items:center;width:44px;height:44px;background:0 0;border:none;cursor:pointer;z-index:1001}.mobile-menu-btn span{display:block;width:24px;height:2px;background:var(--color-primary);margin:3px 0;transition:var(--transition);border-radius:2px}.mobile-menu-btn.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.mobile-menu-btn.active span:nth-child(2){opacity:0}.mobile-menu-btn.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-6px)}.mobile-menu{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--color-white);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2rem;opacity:0;visibility:hidden;transition:var(--transition);z-index:999}.mobile-menu.active{opacity:1;visibility:visible}.mobile-menu a{font-family:var(--font-display);font-size:1.75rem;color:var(--color-primary);text-decoration:none;opacity:0;transform:translateY(20px);transition:var(--transition)}.mobile-menu.active a{opacity:1;transform:translateY(0)}.mobile-menu.active a:nth-child(1){transition-delay:.1s}.mobile-menu.active a:nth-child(2){transition-delay:.2s}.mobile-menu.active a:nth-child(3){transition-delay:.3s}.mobile-menu.active a:nth-child(4){transition-delay:.4s}.mobile-menu a:hover{color:var(--color-secondary)}
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem 1.75rem;background:var(--color-primary);color:var(--color-white);text-decoration:none;font-weight:600;font-size:.95rem;border-radius:50px;transition:var(--transition);border:2px solid var(--color-primary);position:relative;overflow:hidden}.btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:var(--transition)}.btn:hover::before{left:100%}.btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(15,28,46,.3)}.btn-secondary{background:var(--color-secondary);border-color:var(--color-secondary)}.btn-secondary:hover{box-shadow:0 10px 30px rgba(212,168,83,.4)}.btn-outline{background:0 0;color:var(--color-primary)}.btn-outline:hover{background:var(--color-primary);color:var(--color-white)}
+        .hero{min-height:100vh;min-height:100dvh;display:flex;align-items:center;background:linear-gradient(180deg,var(--color-light) 0%,var(--color-white) 100%);position:relative;overflow:hidden;padding:100px 1.5rem 3rem}.hero-bg{position:absolute;inset:0;overflow:hidden;z-index:0}.hero-bg .circle{position:absolute;border-radius:50%;background:linear-gradient(135deg,var(--color-secondary) 0%,rgba(212,168,83,.1) 100%);opacity:.1;animation:float 20s infinite ease-in-out}.hero-bg .circle:nth-child(1){width:300px;height:300px;top:-100px;right:-100px}.hero-bg .circle:nth-child(2){width:200px;height:200px;bottom:10%;left:-50px;animation-delay:-5s}.hero-bg .circle:nth-child(3){width:150px;height:150px;top:50%;right:10%;animation-delay:-10s}@keyframes float{0%,100%{transform:translateY(0) rotate(0)}33%{transform:translateY(-30px) rotate(5deg)}66%{transform:translateY(20px) rotate(-5deg)}}
+        .hero-content{max-width:1200px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:2.5rem;position:relative;z-index:1}.hero-text{text-align:center;opacity:0;animation:fadeInUp 1s ease forwards}.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:rgba(212,168,83,.15);border-radius:50px;margin-bottom:1.5rem;font-size:.85rem;font-weight:600;color:var(--color-secondary);animation:pulse 2s infinite}@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(212,168,83,.4)}50%{box-shadow:0 0 0 10px rgba(212,168,83,0)}}.hero-badge svg{width:16px;height:16px;fill:currentColor}.hero-text h1{font-family:var(--font-display);font-size:clamp(2.25rem,8vw,4rem);font-weight:600;color:var(--color-primary);line-height:1.15;margin-bottom:1.25rem}.hero-text h1 span{color:var(--color-secondary);position:relative}.hero-text h1 span::after{content:'';position:absolute;bottom:5px;left:0;width:100%;height:8px;background:rgba(212,168,83,.3);z-index:-1;transform:skewX(-5deg)}.hero-text p{font-size:1.1rem;color:var(--color-text-light);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto}.hero-buttons{display:flex;flex-direction:column;gap:1rem;align-items:center}.hero-buttons .btn{width:100%;max-width:280px}
+        .hero-visual{position:relative;opacity:0;animation:fadeInUp 1s ease .3s forwards}.hero-card{background:var(--color-white);border-radius:20px;padding:2rem;box-shadow:0 25px 80px rgba(15,28,46,.15);position:relative;overflow:hidden}.hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--color-secondary),var(--color-primary))}.hero-card-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(15,28,46,.1)}.hero-card-icon{width:60px;height:60px;background:linear-gradient(135deg,var(--color-primary),var(--color-accent));border-radius:15px;display:flex;align-items:center;justify-content:center;animation:iconFloat 3s ease-in-out infinite}@keyframes iconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}.hero-card-icon svg{width:30px;height:30px;stroke:var(--color-white)}.hero-card-title h3{font-family:var(--font-display);font-size:1.25rem;color:var(--color-primary);margin-bottom:.25rem}.hero-card-title p{font-size:.9rem;color:var(--color-text-light)}.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.stat-item{text-align:center;padding:1rem .5rem;background:var(--color-light);border-radius:12px;transition:var(--transition)}.stat-item:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(15,28,46,.1)}.stat-number{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--color-secondary);display:block}.stat-label{font-size:.75rem;color:var(--color-text-light);text-transform:uppercase;letter-spacing:.05em}
+        .floating-element{position:absolute;background:var(--color-white);border-radius:12px;padding:.75rem 1rem;box-shadow:0 10px 40px rgba(15,28,46,.15);display:none;align-items:center;gap:.75rem;animation:floatElement 4s ease-in-out infinite}@keyframes floatElement{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}.floating-element.element-1{top:-10px;right:-10px}.floating-element.element-2{bottom:30px;left:-10px;animation-delay:-2s}.floating-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center}.floating-icon.green{background:#dcfce7}.floating-icon.blue{background:#dbeafe}.floating-icon svg{width:18px;height:18px}.floating-icon.green svg{stroke:#16a34a}.floating-icon.blue svg{stroke:#2563eb}.floating-text{font-size:.8rem;font-weight:600;color:var(--color-primary)}
+        .services{padding:4rem 1.5rem;background:var(--color-white)}.section-header{text-align:center;max-width:600px;margin:0 auto 3rem}.section-tag{display:inline-block;padding:.5rem 1.25rem;background:linear-gradient(135deg,rgba(212,168,83,.15),rgba(212,168,83,.05));color:var(--color-secondary);font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;border-radius:50px;margin-bottom:1rem}.section-header h2{font-family:var(--font-display);font-size:clamp(1.75rem,5vw,2.5rem);color:var(--color-primary);margin-bottom:1rem;line-height:1.2}.section-header p{color:var(--color-text-light);font-size:1rem}.services-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:1.5rem}
+        .service-card{background:var(--color-light);padding:2rem;border-radius:20px;transition:var(--transition);position:relative;overflow:hidden;cursor:pointer}.service-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--color-primary),var(--color-accent));opacity:0;transition:var(--transition);z-index:0}.service-card:hover::before{opacity:1}.service-card:hover{transform:translateY(-10px);box-shadow:0 30px 60px rgba(15,28,46,.2)}.service-card>*{position:relative;z-index:1;transition:var(--transition)}.service-card:hover .service-icon{background:rgba(255,255,255,.2)}.service-card:hover h3,.service-card:hover p{color:var(--color-white)}.service-icon{width:60px;height:60px;background:var(--color-white);border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;box-shadow:0 8px 20px rgba(15,28,46,.1)}.service-icon svg{width:28px;height:28px;stroke:var(--color-primary);transition:var(--transition)}.service-card:hover .service-icon svg{stroke:var(--color-white)}.service-card h3{font-family:var(--font-display);font-size:1.25rem;color:var(--color-primary);margin-bottom:.75rem}.service-card p{color:var(--color-text-light);font-size:.95rem;line-height:1.7}
+        .why-us{padding:4rem 1.5rem;background:var(--color-primary);color:var(--color-white);position:relative;overflow:hidden}.why-us::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:200%;background:radial-gradient(circle,rgba(212,168,83,.1) 0%,transparent 60%);animation:rotate 30s linear infinite}@keyframes rotate{from{transform:rotate(0)}to{transform:rotate(360deg)}}.why-us-content{max-width:1200px;margin:0 auto;position:relative;z-index:1}.why-us .section-header{text-align:left;margin-bottom:2.5rem}.why-us .section-tag{background:rgba(212,168,83,.2)}.why-us h2{color:var(--color-white)}.why-us .section-header p{color:rgba(255,255,255,.7)}.features-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
+        .feature-item{display:flex;gap:1rem;align-items:flex-start;padding:1.5rem;background:rgba(255,255,255,.05);border-radius:16px;border:1px solid rgba(255,255,255,.1);transition:var(--transition)}.feature-item:hover{background:rgba(255,255,255,.1);transform:translateX(10px)}.feature-icon{width:50px;height:50px;background:var(--color-secondary);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}.feature-icon svg{width:24px;height:24px;stroke:var(--color-white)}.feature-text h4{font-family:var(--font-display);font-size:1.1rem;margin-bottom:.5rem}.feature-text p{color:rgba(255,255,255,.7);font-size:.9rem}
+        .testimonials{padding:4rem 1.5rem;background:var(--color-light);overflow:hidden}.testimonials-slider{max-width:600px;margin:0 auto}.testimonial-card{background:var(--color-white);padding:2rem;border-radius:20px;box-shadow:0 10px 40px rgba(15,28,46,.08);text-align:center}.testimonial-quote{font-size:3rem;color:var(--color-secondary);line-height:1;margin-bottom:1rem}.testimonial-text{font-size:1.1rem;color:var(--color-text);font-style:italic;margin-bottom:1.5rem;line-height:1.8}.testimonial-author{display:flex;align-items:center;justify-content:center;gap:1rem}.author-avatar{width:50px;height:50px;background:linear-gradient(135deg,var(--color-secondary),var(--color-primary));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.25rem;color:var(--color-white)}.author-info strong{display:block;color:var(--color-primary);font-size:1rem}.author-info span{color:var(--color-text-light);font-size:.85rem}
+        .contact{padding:4rem 1.5rem;background:var(--color-white)}.contact-content{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:2.5rem}.contact-info h2{font-family:var(--font-display);font-size:clamp(1.75rem,5vw,2.5rem);color:var(--color-primary);margin-bottom:1rem}.contact-info>p{color:var(--color-text-light);margin-bottom:2rem;font-size:1rem}.contact-details{display:flex;flex-direction:column;gap:1rem}.contact-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--color-light);border-radius:12px;transition:var(--transition)}.contact-item:hover{transform:translateX(10px);box-shadow:0 5px 20px rgba(15,28,46,.1)}.contact-icon{width:48px;height:48px;background:var(--color-white);border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(15,28,46,.08)}.contact-icon svg{width:22px;height:22px;stroke:var(--color-primary)}.contact-item-text strong{display:block;color:var(--color-primary);font-size:.95rem}.contact-item-text span,.contact-item-text a{color:var(--color-text-light);font-size:.9rem;text-decoration:none;transition:var(--transition)}.contact-item-text a:hover{color:var(--color-secondary)}
+        .contact-cta{background:linear-gradient(135deg,var(--color-primary),var(--color-accent));padding:2.5rem 2rem;border-radius:24px;text-align:center;position:relative;overflow:hidden}.contact-cta::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 50%);animation:rotate 20s linear infinite}.contact-cta>*{position:relative;z-index:1}.contact-cta h3{font-family:var(--font-display);font-size:1.5rem;color:var(--color-white);margin-bottom:.75rem}.contact-cta p{color:rgba(255,255,255,.8);margin-bottom:1.5rem;font-size:.95rem}.whatsapp-btn{display:inline-flex;align-items:center;gap:.75rem;padding:1rem 2rem;background:#25D366;color:var(--color-white);text-decoration:none;font-weight:700;font-size:1rem;border-radius:50px;transition:var(--transition);box-shadow:0 10px 30px rgba(37,211,102,.4)}.whatsapp-btn:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(37,211,102,.5)}.whatsapp-btn svg{width:24px;height:24px;fill:currentColor}
+        footer{background:var(--color-primary);color:var(--color-white);padding:3rem 1.5rem 1.5rem}.footer-content{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.1);text-align:center}.footer-logo{font-family:var(--font-display);font-size:1.5rem;font-weight:600}.footer-logo span{color:var(--color-secondary)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem}.footer-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:.9rem;transition:var(--transition)}.footer-links a:hover{color:var(--color-secondary)}.footer-bottom{max-width:1200px;margin:0 auto;padding-top:1.5rem;text-align:center;color:rgba(255,255,255,.5);font-size:.85rem}
+        .reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.4,0,.2,1)}.reveal.active{opacity:1;transform:translateY(0)}@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+        /* ===== ÁREAS ESPECIALIZADAS (con imágenes + efecto real estate) ===== */
+        .areas{position:relative;padding:4rem 1.5rem;background:var(--color-light);overflow:hidden;isolation:isolate}
+        .areas::before{content:'';position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(15,28,46,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(15,28,46,.05) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 120% 75% at 85% 0%,#000,transparent 70%);mask-image:radial-gradient(ellipse 120% 75% at 85% 0%,#000,transparent 70%)}
+        .areas::after{content:'';position:absolute;top:-140px;right:-140px;width:460px;height:460px;z-index:-1;background:radial-gradient(circle,rgba(212,168,83,.18),transparent 65%);pointer-events:none}
+        .areas-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:1.5rem}
+        .area-card{position:relative;background:var(--color-white);border:1px solid rgba(15,28,46,.08);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:var(--transition)}
+        .area-card:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(15,28,46,.18);border-color:rgba(212,168,83,.45)}
+        .area-media{position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,var(--color-light),#e5dcc9)}
+        .area-media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.06);filter:saturate(.94) contrast(1.02);transition:transform 1.1s cubic-bezier(.16,1,.3,1),filter .6s}
+        .area-card:hover .area-media img{transform:scale(1.16);filter:saturate(1.06)}
+        .area-media::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,28,46,.6) 0%,rgba(15,28,46,0) 55%)}
+        .area-num{position:absolute;top:14px;left:14px;z-index:2;font-family:var(--font-display);font-size:.8rem;font-weight:600;letter-spacing:.1em;color:#fff;background:rgba(15,28,46,.35);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:50px}
+        .area-body{padding:1.5rem;display:flex;flex-direction:column;flex:1}
+        .area-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+        .area-card h3{font-family:var(--font-display);font-size:1.2rem;color:var(--color-primary);line-height:1.2;margin:0}
+        .area-desc{color:var(--color-text-light);font-size:.92rem;line-height:1.65;margin:.75rem 0 0}
+        .area-plus{flex:0 0 auto;width:42px;height:42px;border-radius:14px;border:1px solid rgba(15,28,46,.12);background:var(--color-light);color:var(--color-primary);cursor:pointer;display:grid;place-items:center;transition:var(--transition)}
+        .area-plus svg{width:18px;height:18px;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+        .area-plus:hover{border-color:var(--color-secondary)}
+        .area-card.open .area-plus{background:var(--color-secondary);color:#fff;border-color:var(--color-secondary)}
+        .area-card.open .area-plus svg{transform:rotate(135deg)}
+        .area-detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.16,1,.3,1)}
+        .area-card.open .area-detail{grid-template-rows:1fr}
+        .area-detail-inner{overflow:hidden}
+        .area-detail ul{list-style:none;margin:1.1rem 0 0;padding:1.1rem 0 0;border-top:1px solid rgba(15,28,46,.1);display:grid;gap:.6rem}
+        .area-detail li{position:relative;padding-left:1.4rem;font-size:.88rem;line-height:1.5;color:var(--color-text-light)}
+        .area-detail li::before{content:'';position:absolute;left:0;top:7px;width:9px;height:9px;border-radius:2px;background:var(--color-secondary);transform:rotate(45deg)}
+        .area-cta{margin-top:1rem;display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:700;color:var(--color-secondary);text-decoration:none}
+        .area-cta svg{width:15px;height:15px;transition:transform .35s}
+        .area-cta:hover svg{transform:translateX(4px)}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+        @media (min-width:640px){.hero-buttons{flex-direction:row;justify-content:center}.hero-buttons .btn{width:auto}.services-grid{grid-template-columns:repeat(2,1fr)}.areas-grid{grid-template-columns:repeat(2,1fr)}.area-card.is-wide{grid-column:span 2}.features-grid{grid-template-columns:repeat(2,1fr)}.floating-element{display:flex}}
+        @media (min-width:768px){.header-content{padding:1.25rem 2rem}nav{display:flex}.mobile-menu-btn{display:none}.hero{padding:0 2rem}.hero-content{flex-direction:row;align-items:center;gap:4rem}.hero-text{text-align:left;flex:1}.hero-text p{margin-left:0}.hero-buttons{justify-content:flex-start}.hero-visual{flex:1}.services{padding:6rem 2rem}.services-grid{grid-template-columns:repeat(3,1fr)}.areas{padding:6rem 2rem}.areas-grid{grid-template-columns:repeat(3,1fr)}.area-card.is-wide{grid-column:span 2}.why-us{padding:6rem 2rem}.testimonials{padding:6rem 2rem}.contact{padding:6rem 2rem}.contact-content{flex-direction:row;align-items:center}.contact-info,.contact-cta{flex:1}footer{padding:4rem 2rem 2rem}.footer-content{flex-direction:row;justify-content:space-between;text-align:left}}
+        @media (min-width:1024px){.hero-card{padding:2.5rem}.stat-number{font-size:2rem}.stat-label{font-size:.8rem}}
+    </style>
+</head>
+<body>
+    <header id="header"><div class="header-content"><a href="#" class="logo">Legal<span>y</span>Forma</a><nav><a href="#servicios">Servicios</a><a href="#areas">Áreas</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a><a href="#contacto" class="btn btn-secondary">Consulta Gratis</a></nav><button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menú"><span></span><span></span><span></span></button></div></header>
+    <div class="mobile-menu" id="mobileMenu"><a href="#servicios">Servicios</a><a href="#areas">Áreas</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a><a href="#contacto" class="btn btn-secondary">Consulta Gratis</a></div>
+    <section class="hero"><div class="hero-bg"><div class="circle"></div><div class="circle"></div><div class="circle"></div></div><div class="hero-content"><div class="hero-text"><div class="hero-badge"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Expertos en Derecho Inmobiliario</div><h1>Protege tu <span>Inversión</span> Inmobiliaria</h1><p>Asesoría legal especializada para compra, venta y alquiler de inmuebles. Contratos seguros y respaldo profesional.</p><div class="hero-buttons"><a href="#contacto" class="btn btn-secondary">Solicitar Consulta</a><a href="#servicios" class="btn btn-outline">Ver Servicios</a></div></div><div class="hero-visual"><div class="hero-card"><div class="hero-card-header"><div class="hero-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 21h18M3 7v1a3 3 0 003 3h12a3 3 0 003-3V7M6 21V11M18 21V11M12 21V11M6 7V4a1 1 0 011-1h10a1 1 0 011 1v3"/></svg></div><div class="hero-card-title"><h3>Legal y Forma</h3><p>Tu aliado legal inmobiliario</p></div></div><div class="hero-stats"><div class="stat-item"><span class="stat-number">500+</span><span class="stat-label">Clientes</span></div><div class="stat-item"><span class="stat-number">10+</span><span class="stat-label">Años Exp.</span></div><div class="stat-item"><span class="stat-number">98%</span><span class="stat-label">Satisfacción</span></div></div></div><div class="floating-element element-1"><div class="floating-icon green"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div><span class="floating-text">Contrato Aprobado</span></div><div class="floating-element element-2"><div class="floating-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span class="floating-text">100% Seguro</span></div></div></div></section>
+    <section class="services" id="servicios"><div class="section-header reveal"><span class="section-tag">Nuestros Servicios</span><h2>Soluciones Legales para el Sector Inmobiliario</h2><p>Protegemos tus intereses en cada operación inmobiliaria</p></div><div class="services-grid"><div class="service-card reveal"><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div><h3>Contratos de Compraventa</h3><p>Redacción y revisión de contratos que protegen tu inversión.</p></div><div class="service-card reveal"><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></div><h3>Contratos de Alquiler</h3><p>Contratos de arrendamiento con cláusulas de garantía.</p></div><div class="service-card reveal"><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg></div><h3>Due Diligence</h3><p>Investigación exhaustiva de la situación legal de inmuebles.</p></div><div class="service-card reveal"><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><h3>Asesoría a Inmobiliarias</h3><p>Servicio especializado para agencias y corredores.</p></div><div class="service-card reveal"><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div><h3>Constitución de Empresas</h3><p>Creación y formalización de empresas inmobiliarias.</p></div><div class="service-card reveal"><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Plantillas Legales</h3><p>Modelos de contratos listos para usar.</p></div></div></section>
+    <section class="areas" id="areas"><div class="section-header reveal"><span class="section-tag">Áreas Especializadas</span><h2>Servicios Jurídicos Inmobiliarios</h2><p>Acompañamiento legal integral en cada etapa de tu patrimonio inmobiliario</p></div><div class="areas-grid">
+        <article class="area-card reveal"><div class="area-media"><span class="area-num">01</span><img alt="Contratos inmobiliarios" loading="lazy" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"></div><div class="area-body"><div class="area-top"><h3>Contratos Inmobiliarios</h3><button class="area-plus" aria-expanded="false" aria-label="Ver más"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div><p class="area-desc">Asesoría legal, revisión, modificación y redacción de contratos de compraventa, arrendamiento y demás actos inmobiliarios.</p><div class="area-detail"><div class="area-detail-inner"><ul><li>Compraventa, arrendamiento, anticresis y opción de compra.</li><li>Revisión de cláusulas y mitigación de riesgos legales.</li><li>Redacción a medida y minutas para notaría.</li></ul><a class="area-cta" href="#contacto">Solicitar asesoría <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div></article>
+        <article class="area-card reveal"><div class="area-media"><span class="area-num">02</span><img alt="Junta de propietarios" loading="lazy" src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?auto=format&fit=crop&w=800&q=80"></div><div class="area-body"><div class="area-top"><h3>Junta de Propietarios</h3><button class="area-plus" aria-expanded="false" aria-label="Ver más"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div><p class="area-desc">Asesoría legal e integral a las juntas de propietarios para una gestión ordenada, transparente y conforme a ley.</p><div class="area-detail"><div class="area-detail-inner"><ul><li>Constitución, reglamento interno y libro de actas.</li><li>Convocatorias, asambleas y validez de acuerdos.</li><li>Resolución de conflictos entre copropietarios.</li></ul><a class="area-cta" href="#contacto">Solicitar asesoría <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div></article>
+        <article class="area-card reveal"><div class="area-media"><span class="area-num">03</span><img alt="Procesos judiciales" loading="lazy" src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80"></div><div class="area-body"><div class="area-top"><h3>Procesos Judiciales</h3><button class="area-plus" aria-expanded="false" aria-label="Ver más"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div><p class="area-desc">Representación judicial en procesos relacionados con bienes inmuebles, defendiendo tu propiedad en cada instancia.</p><div class="area-detail"><div class="area-detail-inner"><ul><li>Desalojo, reivindicación y mejor derecho de propiedad.</li><li>Prescripción adquisitiva de dominio.</li><li>Conflictos de linderos y deslinde.</li></ul><a class="area-cta" href="#contacto">Solicitar asesoría <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div></article>
+        <article class="area-card is-wide reveal"><div class="area-media"><span class="area-num">04</span><img alt="Saneamiento físico legal de inmueble" loading="lazy" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1100&q=80"></div><div class="area-body"><div class="area-top"><h3>Saneamiento Físico Legal de Inmueble</h3><button class="area-plus" aria-expanded="false" aria-label="Ver más"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div><p class="area-desc">Asesoría técnico-legal en la regularización, independización e inscripción de tu propiedad ante Registros Públicos (SUNARP).</p><div class="area-detail"><div class="area-detail-inner"><ul><li>Prescripción, rectificación de áreas y linderos.</li><li>Independización, acumulación y declaratoria de fábrica.</li><li>Inscripción registral y tracto sucesivo.</li></ul><a class="area-cta" href="#contacto">Solicitar asesoría <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div></article>
+        <article class="area-card reveal"><div class="area-media"><span class="area-num">05</span><img alt="Consultoría legal" loading="lazy" src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80"></div><div class="area-body"><div class="area-top"><h3>Consultoría Legal</h3><button class="area-plus" aria-expanded="false" aria-label="Ver más"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div><p class="area-desc">Brindamos una consultoría legal personalizada para empresas y particulares en materia inmobiliaria, civil y registral.</p><div class="area-detail"><div class="area-detail-inner"><ul><li>Diagnóstico legal y due diligence inmobiliario.</li><li>Acompañamiento en inversión y adquisición de predios.</li><li>Opiniones legales y planeamiento patrimonial.</li></ul><a class="area-cta" href="#contacto">Solicitar asesoría <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div></article>
+    </div></section>
+    <section class="why-us" id="nosotros"><div class="why-us-content"><div class="section-header reveal"><span class="section-tag">¿Por qué elegirnos?</span><h2>Experiencia y Compromiso</h2><p>Combinamos conocimiento legal con entendimiento del mercado inmobiliario.</p></div><div class="features-grid"><div class="feature-item reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="feature-text"><h4>Respuesta en 24h</h4><p>Atención ágil para tus consultas legales.</p></div></div><div class="feature-item reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="feature-text"><h4>Especialización</h4><p>Enfoque exclusivo en derecho inmobiliario.</p></div></div><div class="feature-item reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="feature-text"><h4>Seguridad Jurídica</h4><p>Documentos revisados minuciosamente.</p></div></div><div class="feature-item reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div><div class="feature-text"><h4>Transparencia Total</h4><p>Honorarios claros y sin sorpresas.</p></div></div></div></div></section>
+    <section class="testimonials"><div class="section-header reveal"><span class="section-tag">Testimonios</span><h2>Lo que dicen nuestros clientes</h2></div><div class="testimonials-slider reveal"><div class="testimonial-card"><div class="testimonial-quote">"</div><p class="testimonial-text">Excelente servicio. Me ayudaron con la compra de mi departamento y todo fue muy transparente. Me sentí protegido en todo momento.</p><div class="testimonial-author"><div class="author-avatar">JM</div><div class="author-info"><strong>Juan Martínez</strong><span>Comprador de inmueble</span></div></div></div></div></section>
+    <section class="contact" id="contacto"><div class="contact-content"><div class="contact-info reveal"><h2>¿Listo para proteger tu inversión?</h2><p>Contáctanos y recibe una consulta inicial gratuita.</p><div class="contact-details"><div class="contact-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div class="contact-item-text"><strong>Teléfono</strong><span><a href="tel:+51924333983">+51 924 333 983</a></span></div></div><div class="contact-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div><div class="contact-item-text"><strong>Email</strong><span><a href="mailto:contacto@legalyforma.com">contacto@legalyforma.com</a></span></div></div><div class="contact-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="contact-item-text"><strong>Ubicación</strong><span>Miraflores, Lima, Perú</span></div></div></div></div><div class="contact-cta reveal"><h3>Escríbenos por WhatsApp</h3><p>La forma más rápida de contactarnos.</p><a href="https://wa.me/51924333983?text=Hola,%20me%20interesa%20una%20consulta%20legal%20inmobiliaria" class="whatsapp-btn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Contactar Ahora</a></div></div></section>
+    <footer><div class="footer-content"><div class="footer-logo">Legal<span>y</span>Forma</div><div class="footer-links"><a href="#servicios">Servicios</a><a href="#areas">Áreas</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a></div></div><div class="footer-bottom"><p>© 2026 Legal y Forma. Todos los derechos reservados.</p></div></footer>
+    <script>
+        const mobileMenuBtn=document.getElementById('mobileMenuBtn'),mobileMenu=document.getElementById('mobileMenu');mobileMenuBtn.addEventListener('click',()=>{mobileMenuBtn.classList.toggle('active');mobileMenu.classList.toggle('active');document.body.style.overflow=mobileMenu.classList.contains('active')?'hidden':''});mobileMenu.querySelectorAll('a').forEach(link=>{link.addEventListener('click',()=>{mobileMenuBtn.classList.remove('active');mobileMenu.classList.remove('active');document.body.style.overflow=''})});const header=document.getElementById('header');window.addEventListener('scroll',()=>{header.classList.toggle('scrolled',window.scrollY>50)});const reveals=document.querySelectorAll('.reveal');function revealOnScroll(){reveals.forEach(el=>{const top=el.getBoundingClientRect().top;if(top<window.innerHeight-150)el.classList.add('active')})}window.addEventListener('scroll',revealOnScroll);revealOnScroll();document.querySelectorAll('a[href^="#"]').forEach(anchor=>{anchor.addEventListener('click',function(e){e.preventDefault();const target=document.querySelector(this.getAttribute('href'));if(target)target.scrollIntoView({behavior:'smooth',block:'start'})})});
+        document.querySelectorAll('.area-plus').forEach(btn=>{btn.addEventListener('click',()=>{const card=btn.closest('.area-card');const open=card.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false')})});
+        document.querySelectorAll('.area-media img').forEach(img=>{img.addEventListener('error',()=>{img.style.display='none'})});
+    </script>
+</body>
+</html>
